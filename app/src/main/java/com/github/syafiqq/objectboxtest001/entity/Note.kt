@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 data class Note(
-    @Id var id: Long?,
-    var text: String?,
-    var date: Date?
+    @Id var id: Long? = null,
+    var text: String? = null,
+    var date: Date? = null
 )

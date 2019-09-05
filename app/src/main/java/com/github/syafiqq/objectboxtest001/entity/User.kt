@@ -5,8 +5,8 @@ import io.objectbox.annotation.Id
 
 @Entity
 data class User(
-    @Id var id: Long?,
-    var name: String?,
-    var status: String?,
-    var parentId: Long?
+    @Id var id: Long? = null,
+    var name: String? = null,
+    var status: String? = null,
+    var parentId: Long? = null
 )

@@ -5,6 +5,6 @@ import io.objectbox.annotation.Id
 
 @Entity
 data class Role(
-    @Id var id: Long?,
-    var name: String?
+    @Id var id: Long? = null,
+    var name: String? = null
 )

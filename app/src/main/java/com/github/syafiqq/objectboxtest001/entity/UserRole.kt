@@ -6,7 +6,7 @@ import io.objectbox.annotation.Id
 @Entity
 class UserRole(
     @Id
-    var id: Long?,
-    var userId: Long?,
-    var roleId: Long?
+    var id: Long? = null,
+    var userId: Long? = null,
+    var roleId: Long? = null
 )
