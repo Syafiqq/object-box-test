@@ -57,8 +57,11 @@ class NoteTest {
     }
 
     @Test
-    fun it_should_insert_note() {
-        noteEntity?.let { noteDao?.put(it) }
+    fun it_should_insert_note_with_null() {
+        noteEntity?.let {
+            it.id = null
+            noteDao?.put(it)
+        }
 
         val entities = noteDao?.all
 
@@ -69,6 +72,33 @@ class NoteTest {
             assertThat(it?.id, `is`(equalTo(1L)))
             assertThat(it?.text, `is`(equalTo(noteEntity?.text)))
             assertThat(it?.date, `is`(equalTo(noteEntity?.date)))
+        }
+    }
+
+    @Test
+    fun it_should_insert_note_with_zero() {
+        noteEntity?.let {
+            it.id = 0L
+            noteDao?.put(it)
+        }
+
+        val entities = noteDao?.all
+
+        assertThat(entities, `is`(instanceOf(MutableList::class.java)))
+        assertThat(entities?.size, `is`(equalTo(1)))
+        entities?.forEach {
+            assertThat(it?.id, `is`(equalTo(noteEntity?.id)))
+            assertThat(it?.id, `is`(equalTo(1L)))
+            assertThat(it?.text, `is`(equalTo(noteEntity?.text)))
+            assertThat(it?.date, `is`(equalTo(noteEntity?.date)))
+        }
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun it_should_not_insert_note_with_greater_than_internal_sequence() {
+        noteEntity?.let {
+            it.id = 10L
+            noteDao?.put(it)
         }
     }
 
