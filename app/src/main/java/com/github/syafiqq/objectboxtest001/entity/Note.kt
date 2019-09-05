@@ -12,4 +12,18 @@ data class Note(
     var date: Date? = null
 ) {
     lateinit var user: ToOne<User>
+
+    constructor(id: Long? = null,
+                text: String? = null,
+                date: Date? = null,
+                userId: Long) : this(id, text, date) {
+        user.targetId = userId
+    }
+
+    constructor(id: Long? = null,
+                text: String? = null,
+                date: Date? = null,
+                user: User) : this(id, text, date) {
+        this.user.target = user
+    }
 }
