@@ -35,8 +35,7 @@ class UserTest {
         userEntity = User(
             id = null,
             name = "This is text",
-            status = "active",
-            parentId = null
+            status = "active"
         )
         assertThat(userEntity, `is`(notNullValue()))
         assertThat(userDao, `is`(notNullValue()))
