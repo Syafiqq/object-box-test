@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+/.idea
+/gradle
+/gradlew*
+/db*
+!/db
+/cmds/*
+!/cmds/*.example.sh
