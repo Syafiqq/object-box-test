@@ -102,7 +102,7 @@ class NoteTest {
         }
     }
 
-     @Test
+    @Test
     fun it_should_delete_note() {
         noteEntity?.let { noteDao?.put(it) }
 
@@ -110,9 +110,10 @@ class NoteTest {
 
         assertThat(entities, `is`(instanceOf(MutableList::class.java)))
         assertThat(entities?.size, `is`(equalTo(1)))
-         entities?.forEach {
-             assertThat(it?.id, `is`(equalTo(1L)))
-         }
+
+        entities?.forEach {
+            assertThat(it?.id, `is`(equalTo(1L)))
+        }
 
         noteEntity?.let { noteDao?.remove(it) }
 
