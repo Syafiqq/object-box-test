@@ -29,8 +29,8 @@ android {
 
 kapt {
     arguments {
-        //arg("objectbox.modelPath", "$projectDir/schemas/objectbox.json")
-        //arg("objectbox.myObjectBoxPackage", "com.github.syafiqq.objectboxtest001")
+        arg("objectbox.modelPath", "$projectDir/objectbox-models/default.json")
+        arg("objectbox.myObjectBoxPackage", "com.github.syafiqq.objectboxtest001")
         arg("objectbox.debug", true)
     }
 }
