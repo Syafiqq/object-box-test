@@ -18,12 +18,12 @@ import org.junit.runner.RunWith
 class InstanceTest {
 
     private var context: Context? = null
-    private var boxStore: BoxStore? = null
-    private var noteBox: Box<Note>? = null
+    private var db: BoxStore? = null
+    private var dao: Box<Note>? = null
 
     @After
     fun tearDown() {
-        boxStore?.close()
+        db?.close()
     }
 
     @Test
@@ -35,19 +35,19 @@ class InstanceTest {
     @Test
     fun it_should_instantiate_box_store() {
         context = InstrumentationRegistry.getInstrumentation().targetContext
-        boxStore = MyObjectBox.builder()
+        db = MyObjectBox.builder()
             .androidContext(context)
             .build()
-        assertThat(boxStore, `is`(notNullValue()))
+        assertThat(db, `is`(notNullValue()))
     }
 
     @Test
     fun it_should_instantiate_note_box() {
         context = InstrumentationRegistry.getInstrumentation().targetContext
-        boxStore = MyObjectBox.builder()
+        db = MyObjectBox.builder()
             .androidContext(context)
             .build()
-        noteBox = boxStore?.boxFor(Note::class.java)
-        assertThat(noteBox, `is`(notNullValue()))
+        dao = db?.boxFor(Note::class.java)
+        assertThat(dao, `is`(notNullValue()))
     }
 }
