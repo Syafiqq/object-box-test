@@ -11,7 +11,7 @@ data class Note(
     var text: String? = null,
     var date: Date? = null
 ) {
-    var userId: Long? = null
+    var userId: Long = 0
     lateinit var user: ToOne<User>
 
     constructor(id: Long? = null,

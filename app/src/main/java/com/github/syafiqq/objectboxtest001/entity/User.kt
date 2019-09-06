@@ -10,7 +10,7 @@ data class User(
     var name: String? = null,
     var status: String? = null
 ) {
-    var parentId: Long? = null
+    var parentId: Long = 0
     lateinit var parent: ToOne<User>
     @Backlink(to = "parent")
     lateinit var children: ToMany<User>
