@@ -12,8 +12,11 @@ data class User(
 ) {
     var parentId: Long? = null
     lateinit var parent: ToOne<User>
+    @Backlink(to = "parent")
     lateinit var children: ToMany<User>
+    @Backlink(to = "users")
     lateinit var roles: ToMany<Role>
+    @Backlink(to = "user")
     lateinit var notes: ToMany<Note>
 
     constructor(id: Long? = null,
