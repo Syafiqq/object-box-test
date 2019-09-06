@@ -51,7 +51,7 @@
     },
     {
       "id": "3:973758185377109096",
-      "lastPropertyId": "4:3725258823809902185",
+      "lastPropertyId": "5:808796782747755415",
       "name": "User",
       "properties": [
         {
@@ -67,8 +67,8 @@
           "name": "status"
         },
         {
-          "id": "4:3725258823809902185",
-          "indexId": "1:6698576928917681854",
+          "id": "5:808796782747755415",
+          "indexId": "3:497331146456421926",
           "name": "parentId"
         }
       ],
@@ -80,32 +80,30 @@
         {
           "id": "3:8876995463678682522",
           "name": "roles"
-        },
-        {
-          "id": "4:663214969736243069",
-          "name": "notes"
         }
       ]
     }
   ],
   "lastEntityId": "4:5419281867786741155",
-  "lastIndexId": "2:1169133889013769512",
+  "lastIndexId": "3:497331146456421926",
   "lastRelationId": "4:663214969736243069",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,
-  "newUidPool": [
-    808796782747755415
-  ],
   "retiredEntityUids": [
     5419281867786741155
   ],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    6698576928917681854
+  ],
   "retiredPropertyUids": [
     1635718204211489210,
     3529349112296567510,
-    4016587751569826992
+    4016587751569826992,
+    3725258823809902185
   ],
-  "retiredRelationUids": [],
+  "retiredRelationUids": [
+    663214969736243069
+  ],
   "version": 1
 }
