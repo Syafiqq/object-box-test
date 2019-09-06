@@ -8,7 +8,7 @@ import com.github.syafiqq.objectboxtest001.entity.Role
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import org.hamcrest.CoreMatchers.*
-import org.hamcrest.MatcherAssert.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

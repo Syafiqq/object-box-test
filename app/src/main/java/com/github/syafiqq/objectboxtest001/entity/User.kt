@@ -1,9 +1,6 @@
 package com.github.syafiqq.objectboxtest001.entity
 
-import io.objectbox.annotation.Backlink
-import io.objectbox.annotation.Entity
-import io.objectbox.annotation.Id
-import io.objectbox.annotation.TargetIdProperty
+import io.objectbox.annotation.*
 import io.objectbox.relation.ToMany
 import io.objectbox.relation.ToOne
 
