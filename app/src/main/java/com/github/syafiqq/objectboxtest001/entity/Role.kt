@@ -10,7 +10,6 @@ data class Role(
     @Id var id: Long? = null,
     var name: String? = null
 ) {
-    @Backlink(to = "roles")
     lateinit var users: ToMany<User>
 
     constructor(id: Long? = null,
