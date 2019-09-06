@@ -54,13 +54,13 @@ class SessionTest {
             ?.equal(Note_.id, noteEntity?.id ?: 0L)
             ?.build()
 
-        val byId1 = query?.find()?.first()
+        val byId1 = query?.findFirst()
         val locId1 = System.identityHashCode(byId1)
 
-        val byId2 = query?.find()?.first()
+        val byId2 = query?.findFirst()
         val locId2 = System.identityHashCode(byId2)
 
-        val byId3 = query?.find()?.first()
+        val byId3 = query?.findFirst()
         val locId3 = System.identityHashCode(byId3)
 
         assertThat(byId1, `is`(equalTo(byId2)))
@@ -69,6 +69,32 @@ class SessionTest {
         assertThat(locId1, `is`(not(equalTo(locId2))))
         assertThat(locId2, `is`(not(equalTo(locId3))))
         assertThat(locId3, `is`(not(equalTo(locId1))))
+        byId1?.text = "New Text"
+        assertThat(byId1?.text, `is`(not(equalTo(byId2?.text))))
+    }
+
+    @Test
+    fun it_should_return_different_location_with_different_session() {
+        db = MyObjectBox.builder().androidContext(context!!).build()
+        noteDao = db?.boxFor(Note::class.java)
+
+        noteEntity?.let { noteDao?.put(it) }
+
+        val byId1 = noteDao?.query()
+            ?.equal(Note_.id, noteEntity?.id ?: 0L)
+            ?.build()?.findFirst()
+        val locId1 = System.identityHashCode(byId1)
+
+        noteDao?.closeThreadResources()
+        noteDao = db?.boxFor(Note::class.java)
+
+        val byId2 = noteDao?.query()
+            ?.equal(Note_.id, noteEntity?.id ?: 0L)
+            ?.build()?.findFirst()
+        val locId2 = System.identityHashCode(byId2)
+
+        assertThat(byId1, `is`(equalTo(byId2)))
+        assertThat(locId1, `is`(not(equalTo(locId2))))
         byId1?.text = "New Text"
         assertThat(byId1?.text, `is`(not(equalTo(byId2?.text))))
     }
