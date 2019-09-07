@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 import java.util.*
 
 @RunWith(AndroidJUnit4::class)
-class NoteTest {
+class OneToOneTest {
     private var context: Context? = null
     private var db: BoxStore? = null
     private var noteDao: Box<Note>? = null
@@ -65,15 +65,6 @@ class NoteTest {
         noteEntity?.let { noteDao?.put(it) }
         userEntity?.let { userDao?.put(it) }
 
-        assertThat(noteDao?.count(), `is`(equalTo(1L)))
-        assertThat(userDao?.count(), `is`(equalTo(1L)))
-    }
-
-    @Test
-    fun it_should_attached_via_update() {
-        noteEntity?.let { noteDao?.put(it) }
-        userEntity?.let { userDao?.put(it) }
-
         assertThat(noteEntity?.id, `is`(equalTo(1L)))
         assertThat(userEntity?.id, `is`(equalTo(1L)))
         assertThat(noteDao?.count(), `is`(equalTo(1L)))
@@ -82,6 +73,12 @@ class NoteTest {
         assertThat(noteEntity?.user?.target, `is`(nullValue()))
         assertThat(noteEntity?.user?.target?.id, `is`(nullValue()))
         assertThat(noteEntity?.userId, `is`(equalTo(0L)))
+    }
+
+    @Test
+    fun it_should_attached_via_update() {
+        noteEntity?.let { noteDao?.put(it) }
+        userEntity?.let { userDao?.put(it) }
 
         noteEntity?.user?.target = userEntity
         noteEntity?.let { noteDao?.put(it) }
@@ -105,6 +102,7 @@ class NoteTest {
 
         val userEntities = userDao?.all
         val actualUser2 = userEntities?.first()
+
         assertThat(actualUser2, `is`(notNullValue()))
         assertThat(actualUser2?.notes, `is`(notNullValue()))
         assertThat(actualUser2?.notes?.size, `is`(equalTo(1)))
@@ -126,25 +124,34 @@ class NoteTest {
             }
         }
 
+        assertThat(noteEntity?.id, `is`(equalTo(1L)))
+        assertThat(userEntity?.id, `is`(equalTo(1L)))
         assertThat(noteDao?.count(), `is`(equalTo(1L)))
         assertThat(userDao?.count(), `is`(equalTo(1L)))
 
-        val entities1 = noteDao?.all
-        val actualEntity1 = entities1?.first()
-        assertThat(actualEntity1, `is`(notNullValue()))
-        assertThat(actualEntity1?.user?.target, `is`(equalTo(userEntity)))
-        assertThat(actualEntity1?.userId, `is`(notNullValue()))
-        assertThat(actualEntity1?.userId, `is`(equalTo(userEntity?.id)))
+        assertThat(noteEntity?.user?.target, `is`(notNullValue()))
+        assertThat(noteEntity?.user?.target?.id, `is`(allOf(notNullValue(), equalTo(1L))))
+        assertThat(noteEntity?.userId, `is`(equalTo(1L)))
+
+        val noteEntities = noteDao?.all
+        val actualNote1 = noteEntities?.first()
+
+        assertThat(actualNote1, `is`(notNullValue()))
+        assertThat(actualNote1?.user?.target, `is`(equalTo(userEntity)))
+        assertThat(actualNote1?.user?.target?.id, `is`(allOf(notNullValue(), equalTo(1L))))
+        assertThat(actualNote1?.userId, `is`(equalTo(userEntity?.id)))
 
         val userEntities = userDao?.all
         val actualUser2 = userEntities?.first()
+
         assertThat(actualUser2, `is`(notNullValue()))
         assertThat(actualUser2?.notes, `is`(notNullValue()))
         assertThat(actualUser2?.notes?.size, `is`(equalTo(1)))
         actualUser2?.notes?.forEach {n ->
             assertThat(n?.user, `is`(notNullValue()))
-            assertThat(n?.userId, `is`(notNullValue()))
-            assertThat(n?.userId, `is`(equalTo(userEntity?.id)))
+            assertThat(n?.user?.target, `is`(notNullValue()))
+            assertThat(n?.user?.target?.id, `is`(allOf(notNullValue(), equalTo(1L))))
+            assertThat(n?.userId, `is`(equalTo(1L)))
         }
     }
 }
