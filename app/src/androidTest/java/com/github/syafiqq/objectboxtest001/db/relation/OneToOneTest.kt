@@ -81,7 +81,7 @@ class NoteTest {
 
         assertThat(noteEntity?.user?.target, `is`(nullValue()))
         assertThat(noteEntity?.user?.target?.id, `is`(nullValue()))
-        assertThat(noteEntity?.userId, `is`(nullValue()))
+        assertThat(noteEntity?.userId, `is`(equalTo(0L)))
 
         noteEntity?.user?.target = userEntity
         noteEntity?.let { noteDao?.put(it) }
