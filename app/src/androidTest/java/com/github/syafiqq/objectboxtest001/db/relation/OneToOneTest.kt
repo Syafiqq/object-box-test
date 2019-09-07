@@ -115,4 +115,36 @@ class NoteTest {
             assertThat(n?.userId, `is`(equalTo(1L)))
         }
     }
+
+    @Test
+    fun it_should_attached_via_transaction() {
+        db?.runInTx {
+            try {
+                noteEntity?.user?.target = userEntity
+                noteEntity?.let { noteDao?.put(it) }
+            } catch (ex: Exception) {
+            }
+        }
+
+        assertThat(noteDao?.count(), `is`(equalTo(1L)))
+        assertThat(userDao?.count(), `is`(equalTo(1L)))
+
+        val entities1 = noteDao?.all
+        val actualEntity1 = entities1?.first()
+        assertThat(actualEntity1, `is`(notNullValue()))
+        assertThat(actualEntity1?.user?.target, `is`(equalTo(userEntity)))
+        assertThat(actualEntity1?.userId, `is`(notNullValue()))
+        assertThat(actualEntity1?.userId, `is`(equalTo(userEntity?.id)))
+
+        val userEntities = userDao?.all
+        val actualUser2 = userEntities?.first()
+        assertThat(actualUser2, `is`(notNullValue()))
+        assertThat(actualUser2?.notes, `is`(notNullValue()))
+        assertThat(actualUser2?.notes?.size, `is`(equalTo(1)))
+        actualUser2?.notes?.forEach {n ->
+            assertThat(n?.user, `is`(notNullValue()))
+            assertThat(n?.userId, `is`(notNullValue()))
+            assertThat(n?.userId, `is`(equalTo(userEntity?.id)))
+        }
+    }
 }
